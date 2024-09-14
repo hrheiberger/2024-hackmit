@@ -7,6 +7,7 @@ import {
   useQuery,
 } from "convex/react";
 import { api } from "../convex/_generated/api";
+import BasicPieChart from "./components/Visualization/BasicPieChart";
 
 export default function App() {
   return (
@@ -14,6 +15,14 @@ export default function App() {
       <h1 className="text-4xl font-extrabold my-8 text-center">
         Convex + React (Vite) + Clerk Auth
       </h1>
+      <BasicPieChart
+        height="400"
+        width="400"
+        top="10"
+        bottom="10"
+        left="10"
+        right="10"
+      />
       <Authenticated>
         <SignedIn />
       </Authenticated>
