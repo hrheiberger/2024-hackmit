@@ -1,4 +1,6 @@
 import pandas as pd
+import numpy as np
+from scipy.stats import pearsonr
 from yahoo_finance_parser import get_close_history
 def get_s_and_p():
     '''
@@ -43,13 +45,11 @@ def get_stock_correlation(x, y, time_period):
     return sigma_1/((sigma_2*sigma_3)**(1/2))
 
 #temp1 = get_close_history("COST")
-comp1 = get_close_history("NEE")
+comp1 = get_close_history("NVDA")
 comp2 = get_close_history("AAPL")
 comp3 = get_close_history("GOOG")
 spy = get_close_history("SPY")
 
-temp4 = get_stock_correlation(comp1, comp2, 100)
-print(temp4)
+temp = get_stock_correlation(comp1, comp2, 36)
+print(temp)
 
-temp6 = get_stock_correlation(comp2, comp3, 100)
-print(temp6)
