@@ -21,3 +21,4 @@ def get_close_history(ticker):
     return closes[::-1]
 
 closes = get_close_history("NVDA")
+

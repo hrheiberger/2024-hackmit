@@ -1,4 +1,7 @@
 import pandas as pd
+import numpy as np
+from scipy.stats import pearsonr
+from yahoo_finance_parser import get_close_history
 def get_s_and_p():
     '''
     Get a list of the 503 stocks in the S&P 500
@@ -16,7 +19,6 @@ def get_s_and_p():
     sp500_tickers = sp500_table['Symbol'].tolist()
     return sp500_tickers
 
-print(len(get_s_and_p()))
 def get_stock_correlation(x, y, time_period):
     '''
     Finds the correlation of two stocks
@@ -26,7 +28,7 @@ def get_stock_correlation(x, y, time_period):
     sigma_1 = 0
     mean_x = 0
     mean_y = 0
-    for i in time_period: 
+    for i in range(time_period): 
         mean_x+=x[i]
         mean_y+=y[i]
     mean_x = mean_x/time_period
@@ -35,9 +37,19 @@ def get_stock_correlation(x, y, time_period):
     sigma_2 = 0
     sigma_3 = 0
 
-    for i in time_period: 
+    for i in range(time_period): 
         sigma_1+=(x[i]-mean_x)*(y[i]-mean_y)
         sigma_2+=(x[i]-mean_x)**2
         sigma_3+=(y[i]-mean_y)**2
 
     return sigma_1/((sigma_2*sigma_3)**(1/2))
+
+#temp1 = get_close_history("COST")
+comp1 = get_close_history("NVDA")
+comp2 = get_close_history("AAPL")
+comp3 = get_close_history("GOOG")
+spy = get_close_history("SPY")
+
+temp = get_stock_correlation(comp1, comp2, 36)
+print(temp)
+
