@@ -7,4 +7,4 @@ def get_close_history(ticker):
     closes = [row.values[0] for index, row in history[["Close"]].iterrows()]
     return closes[::-1]
 
-print(get_close_history("COST"))
+#print(get_close_history("COST"))
