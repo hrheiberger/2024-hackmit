@@ -33,6 +33,7 @@ export default defineSchema(
       user: v.string(),
       company1: v.string(),
       company2: v.string(),
+      correlation: v.number(),
     }),
 
     userHistory: defineTable({
