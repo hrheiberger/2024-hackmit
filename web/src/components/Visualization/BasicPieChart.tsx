@@ -15,8 +15,6 @@ import {
 interface Node extends SimulationNodeDatum {
   id: string;
   group: string;
-  radius?: number;
-  citing_patents_count?: number;
 }
 
 const BasicPieChart = (props: IBasicPieChartProps) => {
@@ -84,7 +82,17 @@ const BasicPieChart = (props: IBasicPieChartProps) => {
       .selectAll("line")
       .data(links)
       .join("line")
-      .attr("stroke-width", (d) => Math.sqrt(d.value));
+      .attr("stroke-width", 1.5);
+
+    let defs = svg.append("g");
+
+    defs
+      .append("svg:pattern")
+      .attr("id", "grump_avatar")
+      .attr("width", 40)
+      .attr("height", 40)
+      .append("svg:image")
+      .attr("xlink:href", "https://placedog.net/40/40");
 
     const node = svg
       .append("g")
@@ -93,10 +101,9 @@ const BasicPieChart = (props: IBasicPieChartProps) => {
       .selectAll("circle")
       .data(nodes)
       .join("circle")
-      .attr("r", 5)
-      .attr("fill", (d) => color(d.group));
-
-    node.append("title").text((d) => d.id);
+      .attr("r", 20)
+      .style("fill", "#fff")
+      .style("fill", "url(#grump_avatar)");
 
     // Add a drag behavior.
     node.call(

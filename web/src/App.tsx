@@ -16,8 +16,8 @@ export default function App() {
         Convex + React (Vite) + Clerk Auth
       </h1>
       <BasicPieChart
-        height="400"
-        width="400"
+        height="1000"
+        width="1000"
         top="10"
         bottom="10"
         left="10"
