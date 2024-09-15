@@ -49,12 +49,14 @@
     "convex": "^1.15.0",
     "d3": "^7.9.0",
     "date-fns": "^2.30.0",
+    "node-fetch": "^3.3.2",
     "react": "^18.2.0",
     "react-day-picker": "^8.9.1",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.47.0",
     "tailwind-merge": "^1.14.0",
     "tailwindcss-animate": "^1.0.7",
+    "yahoo-finance2": "^2.11.3",
     "zod": "^3.22.4"
   },
   "devDependencies": {

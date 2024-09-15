@@ -6,10 +6,16 @@ import {
   useMutation,
   useQuery,
 } from "convex/react";
+import { useAction } from "convex/react";
 import { api } from "../convex/_generated/api";
 import BasicPieChart from "./components/Visualization/BasicPieChart";
 
 export default function App() {
+  const performMyAction = useAction(api.YahooFinanceParser.getCompanyData);
+  console.log(performMyAction().then((data) => data.closes));
+
+
+
   return (
     <main className="container max-w-2xl flex flex-col gap-8">
       <h1 className="text-4xl font-extrabold my-8 text-center">
