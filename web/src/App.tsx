@@ -12,8 +12,8 @@ import { api } from "../convex/_generated/api";
 import { NavComponent } from "./layout/nav";
 import { TypeAnimation } from "react-type-animation";
 import { HomeComponent } from "./layout/home";
-import BasicPieChart from "./components/Visualization/BasicPieChart";
 import React, { useState } from "react";
+import BasicPieChart from "./components/Visualization/BasicPieChart";
 
 export default function App() {
   const [ticker, setTicker] = useState("");
@@ -27,7 +27,8 @@ export default function App() {
     void insertCompany({ ticker: ticker }).then();
   };
   const companies = useQuery(api.getCompanies.getCompanyList);
-  const companiesEdges = useQuery(api.getCompanyEdges.getCompanyEdgesList);
+  console.log(companies);
+  const companyEdges = useQuery(api.getCompanyEdges.getCompanyEdgesList);
   return (
     <>
       <BasicPieChart
@@ -38,7 +39,7 @@ export default function App() {
         left="10"
         right="10"
         companies={companies}
-        companiesEdges={companiesEdges}
+        companyEdges={companyEdges}
       />
       <Input onChange={handleChange} />
       <Button type="submit" onClick={handleSubmit}>

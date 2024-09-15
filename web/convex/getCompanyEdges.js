@@ -13,6 +13,7 @@ export const getCompanyEdgesList = query({
         target: companyEdge.company2,
       };
     });
+    console.log(companyEdges);
     return companyEdges;
   },
 });
