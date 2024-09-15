@@ -6,10 +6,24 @@ import {
   useMutation,
   useQuery,
 } from "convex/react";
+import { useAction } from "convex/react";
 import { api } from "../convex/_generated/api";
+<<<<<<< HEAD
+import { NavComponent } from "./layout/nav";
+import { TypeAnimation } from 'react-type-animation';
+import { HomeComponent } from "./layout/home";
+
+export default function App() {
+  return (
+=======
 import BasicPieChart from "./components/Visualization/BasicPieChart";
 
 export default function App() {
+  const performMyAction = useAction(api.YahooFinanceParser.getCompanyData);
+  console.log(performMyAction().then((data) => data.closes));
+
+
+
   return (
     <main className="container max-w-2xl flex flex-col gap-8">
       <h1 className="text-4xl font-extrabold my-8 text-center">
@@ -45,55 +59,10 @@ function SignedIn() {
   const addNumber = useMutation(api.myFunctions.addNumber);
 
   return (
+>>>>>>> 1e265d1c8e0a033a2328d3369168da1fbd5e8d79
     <>
-      <p>Welcome {viewer}!</p>
-      <p className="flex gap-4 items-center">
-        This is you:
-        <UserButton afterSignOutUrl="#" />
-      </p>
-      <p>
-        Click the button below and open this page in another window - this data
-        is persisted in the Convex cloud database!
-      </p>
-      <p>
-        <Button
-          onClick={() => {
-            void addNumber({ value: Math.floor(Math.random() * 10) });
-          }}
-        >
-          Add a random number
-        </Button>
-      </p>
-      <p>
-        Numbers:{" "}
-        {numbers?.length === 0
-          ? "Click the button!"
-          : numbers?.join(", ") ?? "..."}
-      </p>
-      <p>
-        Edit{" "}
-        <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">
-          convex/myFunctions.ts
-        </code>{" "}
-        to change your backend
-      </p>
-      <p>
-        Edit{" "}
-        <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">
-          src/App.tsx
-        </code>{" "}
-        to change your frontend
-      </p>
-      <p>
-        Check out{" "}
-        <a
-          className="font-medium text-primary underline underline-offset-4"
-          target="_blank"
-          href="https://docs.convex.dev/home"
-        >
-          Convex docs
-        </a>
-      </p>
+      <NavComponent />
+      <HomeComponent />
     </>
   );
 }
