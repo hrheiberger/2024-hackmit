@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/no-var-requires */
 import React, { useEffect } from "react";
-import "./BasicPieChart.scss";
 import * as d3 from "d3";
 import { PieArcDatum } from "d3-shape";
 import { Types } from "./types";
@@ -11,11 +10,7 @@ import {
   SimulationNodeDatum,
   SimulationLinkDatum,
 } from "d3-force";
-
-interface Node extends SimulationNodeDatum {
-  id: string;
-  group: string;
-}
+import { BorderAllIcon } from "@radix-ui/react-icons";
 
 const BasicPieChart = (props: IBasicPieChartProps) => {
   useEffect(() => {
@@ -63,6 +58,7 @@ const BasicPieChart = (props: IBasicPieChartProps) => {
         d3.forceLink<any, any>(links).id((d) => d.id)
       )
       .force("charge", d3.forceManyBody())
+      .force("collide", d3.forceCollide(40).iterations(10))
       .force("x", d3.forceX())
       .force("y", d3.forceY());
 
@@ -75,35 +71,52 @@ const BasicPieChart = (props: IBasicPieChartProps) => {
       .attr("style", "max-width: 100%; height: auto;");
 
     // Add a line for each link, and a circle for each node.
+
+    const tooltip = d3
+      //.select("#" + this.props.idContainer)
+      .select("body")
+      .append("div")
+      .attr("class", "tooltip-player")
+      .style("opacity", 100)
+      .style("background-color", "white")
+      .style("position", "fixed")
+      .style("border", "solid")
+      .style("border-width", "2px")
+      .style("border-radius", "5px")
+      .style("padding", "5px")
+      .style("color", "black");
+
+    const node = svg
+      .attr("class", "nodes")
+      .selectAll("g")
+      .data(nodes)
+      .enter()
+      .append("g");
+
+    node
+      .append("circle")
+      .attr("r", 40)
+      .attr("fill", "#fff")
+      .on("mouseover", (event, d) => {
+        tipMouseOver(event, d, tooltip);
+      })
+      .on("mouseout", () => {
+        tipMouseOut(tooltip);
+      });
+    node
+      .append("text")
+      .text((d) => d.name)
+      .style("text-anchor", "middle")
+      .style("font-weight", "bold")
+      .style("font-size", "10pt")
+      .style("fill", "#344761");
     const link = svg
-      .append("g")
       .attr("stroke", "#999")
       .attr("stroke-opacity", 0.6)
       .selectAll("line")
       .data(links)
       .join("line")
-      .attr("stroke-width", 1.5);
-
-    let defs = svg.append("g");
-
-    defs
-      .append("svg:pattern")
-      .attr("id", "grump_avatar")
-      .attr("width", 40)
-      .attr("height", 40)
-      .append("svg:image")
-      .attr("xlink:href", "https://placedog.net/40/40");
-
-    const node = svg
-      .append("g")
-      .attr("stroke", "#fff")
-      .attr("stroke-width", 1.5)
-      .selectAll("circle")
-      .data(nodes)
-      .join("circle")
-      .attr("r", 20)
-      .style("fill", "#fff")
-      .style("fill", "url(#grump_avatar)");
+      .attr("stroke-width", 2.0);
 
     // Add a drag behavior.
     node.call(
@@ -121,13 +134,57 @@ const BasicPieChart = (props: IBasicPieChartProps) => {
         .attr("y1", (d) => d.source.y)
         .attr("x2", (d) => d.target.x)
         .attr("y2", (d) => d.target.y);
-
-      node.attr("cx", (d) => d.x).attr("cy", (d) => d.y);
+      node.attr("transform", (d) => `translate(${d.x},${d.y})`);
     });
   };
 
   return <div className="basicPieChart" />;
 };
+
+/**
+ * We define this function inside of setPointsToCanvas to get access to canvas, data, scales and tooltip
+ * @param {*} d
+ * @param {*} iter
+ */
+function tipMouseOver(event: any, d: any, tooltip: any) {
+  let html = "";
+  html +=
+    d.name +
+    "<br><b>" +
+    "Sector" +
+    ": </b>" +
+    d.sector +
+    "<br/>" +
+    "<b>" +
+    "Industry" +
+    ": </b>" +
+    d.industry;
+  tooltip
+    .html(html)
+    .style("left", event.pageX + 15 + "px")
+    .style("top", event.pageY - 28 + "px")
+    .transition()
+    .duration(200) // ms
+    .style("opacity", 0.9); // started as 0!
+
+  console.log(tooltip);
+
+  // Use D3 to select element, change color and size
+  d3.select(this)
+    //.attr("r", 10)
+    .style("cursor", "pointer");
+}
+
+/**
+ * We create this function inside of setPointsToCanvas to get access to tooltip
+ */
+function tipMouseOut(tooltip: any) {
+  tooltip
+    .transition()
+    .duration(500) // ms
+    .style("opacity", 0); // don't care about position!
+  //d3.select(this).attr("r", 5);
+}
 
 interface IBasicPieChartProps {
   width: number;
