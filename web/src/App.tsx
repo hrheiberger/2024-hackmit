@@ -8,6 +8,14 @@ import {
 } from "convex/react";
 import { useAction } from "convex/react";
 import { api } from "../convex/_generated/api";
+<<<<<<< HEAD
+import { NavComponent } from "./layout/nav";
+import { TypeAnimation } from 'react-type-animation';
+import { HomeComponent } from "./layout/home";
+
+export default function App() {
+  return (
+=======
 import BasicPieChart from "./components/Visualization/BasicPieChart";
 
 export default function App() {
@@ -22,8 +30,8 @@ export default function App() {
         Convex + React (Vite) + Clerk Auth
       </h1>
       <BasicPieChart
-        height="1000"
-        width="1000"
+        height="800"
+        width="800"
         top="10"
         bottom="10"
         left="10"
@@ -51,55 +59,10 @@ function SignedIn() {
   const addNumber = useMutation(api.myFunctions.addNumber);
 
   return (
+>>>>>>> 1e265d1c8e0a033a2328d3369168da1fbd5e8d79
     <>
-      <p>Welcome {viewer}!</p>
-      <p className="flex gap-4 items-center">
-        This is you:
-        <UserButton afterSignOutUrl="#" />
-      </p>
-      <p>
-        Click the button below and open this page in another window - this data
-        is persisted in the Convex cloud database!
-      </p>
-      <p>
-        <Button
-          onClick={() => {
-            void addNumber({ value: Math.floor(Math.random() * 10) });
-          }}
-        >
-          Add a random number
-        </Button>
-      </p>
-      <p>
-        Numbers:{" "}
-        {numbers?.length === 0
-          ? "Click the button!"
-          : numbers?.join(", ") ?? "..."}
-      </p>
-      <p>
-        Edit{" "}
-        <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">
-          convex/myFunctions.ts
-        </code>{" "}
-        to change your backend
-      </p>
-      <p>
-        Edit{" "}
-        <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">
-          src/App.tsx
-        </code>{" "}
-        to change your frontend
-      </p>
-      <p>
-        Check out{" "}
-        <a
-          className="font-medium text-primary underline underline-offset-4"
-          target="_blank"
-          href="https://docs.convex.dev/home"
-        >
-          Convex docs
-        </a>
-      </p>
+      <NavComponent />
+      <HomeComponent />
     </>
   );
 }
