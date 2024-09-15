@@ -23,18 +23,19 @@ export const DisplayComponent = (): JSX.Element => {
     // TODO Use the API to update `userTickers` by calling `setUserTickers` with the new data
     if (companies) {
       const companyNames = companies.map((company) => company.name);
+      console.log("bruh", companyNames);
       setUserTickers(companyNames);
     }
-  }, []);
+  }, [companies]);
 
   const insertCompany = useAction(api.insertNodeApi.insertNode);
   const insertUser = useMutation(api.insertNode.createUser);
 
   const addTicker = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    void insertCompany({ ticker: tickerInput });
-    void insertUser({ ticker: tickerInput });
-    setUserTickers([...userTickers, tickerInput]);
+    void insertCompany({ ticker: tickerInput.toUpperCase() });
+    void insertUser({ ticker: tickerInput.toUpperCase() });
+    setUserTickers([...userTickers, tickerInput.toUpperCase()]);
     setTickerInput("");
   };
 
@@ -54,7 +55,7 @@ export const DisplayComponent = (): JSX.Element => {
     <main className="mx-12 h-screen flex flex-col sm:flex-row gap-8 items-center justify-center">
       <BasicPieChart
         height={Math.floor(window.innerHeight * 0.8)}
-        width={Math.floor(window.innerWidth * 0.6)}
+        width={Math.floor(window.innerWidth * 0.7)}
         top={10}
         bottom={10}
         left={10}

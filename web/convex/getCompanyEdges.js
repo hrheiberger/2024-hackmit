@@ -13,6 +13,7 @@ export const getCompanyEdgesList = query({
       return {
         source: companyEdge.company1,
         target: companyEdge.company2,
+        correlation: companyEdge.correlation,
       };
     });
     console.log(companyEdges);
