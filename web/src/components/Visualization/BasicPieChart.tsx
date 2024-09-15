@@ -10,7 +10,17 @@ import {
   SimulationNodeDatum,
   SimulationLinkDatum,
 } from "d3-force";
+import { useQuery } from "convex/react";
+import { useMutation } from "convex/react";
+import { api } from "../../../convex/_generated/api";
 import { BorderAllIcon } from "@radix-ui/react-icons";
+
+interface Node extends SimulationNodeDatum {
+  id: string;
+  group: string;
+  radius?: number;
+  citing_patents_count?: number;
+}
 
 const BasicPieChart = (props: IBasicPieChartProps) => {
   useEffect(() => {
@@ -48,8 +58,10 @@ const BasicPieChart = (props: IBasicPieChartProps) => {
 
     // The force simulation mutates links and nodes, so create a copy
     // so that re-evaluating this cell produces the same result.
-    const links = jsonData.links.map((d) => ({ ...d }));
-    const nodes = jsonData.nodes.map((d) => ({ ...d }));
+    // const links = jsonData.links.map((d) => ({ ...d }));
+    // const nodes = jsonData.nodes.map((d) => ({ ...d }));
+    const links = props.companyEdges ? props.companyEdges : [];
+    const nodes = props.companies ? props.companies : [];
 
     const simulation = d3
       .forceSimulation<any>(nodes)
@@ -58,7 +70,7 @@ const BasicPieChart = (props: IBasicPieChartProps) => {
         d3.forceLink<any, any>(links).id((d) => d.id)
       )
       .force("charge", d3.forceManyBody())
-      .force("collide", d3.forceCollide(40).iterations(10))
+      .force("collide", d3.forceCollide(55).iterations(10))
       .force("x", d3.forceX())
       .force("y", d3.forceY());
 
@@ -86,6 +98,14 @@ const BasicPieChart = (props: IBasicPieChartProps) => {
       .style("padding", "5px")
       .style("color", "black");
 
+    const link = svg
+      .attr("stroke", "#999")
+      .attr("stroke-opacity", 0.6)
+      .selectAll("line")
+      .data(links)
+      .join("line")
+      .attr("stroke-width", 2.5);
+
     const node = svg
       .attr("class", "nodes")
       .selectAll("g")
@@ -97,6 +117,8 @@ const BasicPieChart = (props: IBasicPieChartProps) => {
       .append("circle")
       .attr("r", 40)
       .attr("fill", "#fff")
+      .attr("stroke", (d) => color(d.group))
+      .attr("stroke-width", 10)
       .on("mouseover", (event, d) => {
         tipMouseOver(event, d, tooltip);
       })
@@ -108,15 +130,14 @@ const BasicPieChart = (props: IBasicPieChartProps) => {
       .text((d) => d.name)
       .style("text-anchor", "middle")
       .style("font-weight", "bold")
-      .style("font-size", "10pt")
-      .style("fill", "#344761");
-    const link = svg
-      .attr("stroke", "#999")
-      .attr("stroke-opacity", 0.6)
-      .selectAll("line")
-      .data(links)
-      .join("line")
-      .attr("stroke-width", 2.0);
+      .style("font-size", "15pt")
+      .style("fill", "#344761")
+      .on("mouseover", (event, d) => {
+        tipMouseOver(event, d, tooltip);
+      })
+      .on("mouseout", () => {
+        tipMouseOut(tooltip);
+      });
 
     // Add a drag behavior.
     node.call(
@@ -146,7 +167,7 @@ const BasicPieChart = (props: IBasicPieChartProps) => {
  * @param {*} d
  * @param {*} iter
  */
-function tipMouseOver(event: any, d: any, tooltip: any) {
+function tipMouseOver(this: any, event: any, d: any, tooltip: any) {
   let html = "";
   html +=
     d.name +
@@ -167,12 +188,8 @@ function tipMouseOver(event: any, d: any, tooltip: any) {
     .duration(200) // ms
     .style("opacity", 0.9); // started as 0!
 
-  console.log(tooltip);
-
   // Use D3 to select element, change color and size
-  d3.select(this)
-    //.attr("r", 10)
-    .style("cursor", "pointer");
+  d3.select(this).style("cursor", "pointer");
 }
 
 /**
@@ -193,6 +210,8 @@ interface IBasicPieChartProps {
   right: number;
   bottom: number;
   left: number;
+  companies: any;
+  companyEdges: any;
 }
 
 export default BasicPieChart;
