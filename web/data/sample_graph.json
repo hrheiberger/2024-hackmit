@@ -1,15 +1,16 @@
 {
   "nodes": [
-    { "id": 0, "image": "https://placedog.net/40/40" },
-    { "id": 1, "image": "https://placedog.net/35/35" },
-    { "id": 2, "image": "https://placedog.net/30/0" },
-    { "id": 3, "image": "https://placedog.net/40/40" },
-    { "id": 4, "image": "https://placedog.net/40/40" },
-    { "id": 5, "image": "https://placedog.net/40/40" }
+    { "id": 1, "name": "TKR1" },
+    { "id": 2, "name": "TKR2" },
+    { "id": 3, "name": "TKR3" },
+    { "id": 4, "name": "TKR4" },
+    { "id": 5, "name": "TKR5" },
+    { "id": 6, "name": "TKR6" }
   ],
   "links": [
-    { "source": 0, "target": 1, "group": 0 },
-    { "source": 0, "target": 2, "group": 0 },
-    { "source": 3, "target": 4, "group": 0 }
+    { "source": 1, "target": 2, "group": 0 },
+    { "source": 3, "target": 1, "group": 0 },
+    { "source": 4, "target": 5, "group": 1 },
+    { "source": 6, "target": 4, "group": 0 }
   ]
 }
