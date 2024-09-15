@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import { Button } from "@/components/ui/button";
 import { SignInButton, UserButton } from "@clerk/clerk-react";
 import {
@@ -5,11 +6,14 @@ import {
   Unauthenticated,
   useMutation,
   useQuery,
+  useAction,
 } from "convex/react";
 import { api } from "../convex/_generated/api";
 import BasicPieChart from "./components/Visualization/BasicPieChart";
 
 export default function App() {
+  const companies = useQuery(api.getCompanies.getCompanyList);
+  const companiesEdges = useQuery(api.getCompanyEdges.getCompanyEdgesList);
   return (
     <main className="container max-w-2xl flex flex-col gap-8">
       <h1 className="text-4xl font-extrabold my-8 text-center">
@@ -22,6 +26,8 @@ export default function App() {
         bottom="10"
         left="10"
         right="10"
+        companies={companies}
+        companyEdges={companiesEdges}
       />
       <Authenticated>
         <SignedIn />
@@ -43,7 +49,8 @@ function SignedIn() {
       count: 10,
     }) ?? {};
   const addNumber = useMutation(api.myFunctions.addNumber);
-
+  const insertCompany = useAction(api.insertNodeApi.insertNode);
+  const insertCompanyEdge = useMutation(api.insertEdge.createCompanyEdge);
   return (
     <>
       <p>Welcome {viewer}!</p>
@@ -58,7 +65,10 @@ function SignedIn() {
       <p>
         <Button
           onClick={() => {
-            void addNumber({ value: Math.floor(Math.random() * 10) });
+            // void addNumber({ value: Math.floor(Math.random() * 10) });
+            // void insertCompany({ name: "amazon" });
+            // void insertCompanyEdge({ company1: "amazon", company2: "nvidia" });
+            void insertCompany({ ticker: "AMZN" });
           }}
         >
           Add a random number

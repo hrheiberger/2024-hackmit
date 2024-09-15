@@ -17,6 +17,23 @@ export default defineSchema(
     numbers: defineTable({
       value: v.number(),
     }),
+
+    companies: defineTable({
+      name: v.string(),
+      historical: v.array(v.number()),
+      industry: v.string(),
+      sector: v.string(),
+    }),
+
+    companyEdges: defineTable({
+      company1: v.string(),
+      company2: v.string(),
+    }),
+
+    userHistory: defineTable({
+      username: v.string(),
+      tickers: v.array(v.string()),
+    }),
   },
   // If you ever get an error about schema mismatch
   // between your data and your schema, and you cannot
