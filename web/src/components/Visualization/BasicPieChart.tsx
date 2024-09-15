@@ -101,7 +101,7 @@ const BasicPieChart = (props: IBasicPieChartProps) => {
       .data(links)
       .join("line")
       .attr("stroke", (d) => {
-        if (d.correlation > 0.7) {
+        if ((d as any).correlation > 0.7) {
           return "green";
         }
         return "red";
