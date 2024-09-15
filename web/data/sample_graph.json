@@ -5,48 +5,48 @@
       "name": "TKR1",
       "sector": "Technology",
       "industry": "Electronics",
-      "group": "0"
+      "group": 0
     },
     {
       "id": 2,
       "name": "TKR2",
       "sector": "Technology",
       "industry": "Electronics",
-      "group": "0"
+      "group": 0
     },
     {
       "id": 3,
       "name": "TKR3",
       "sector": "Technology",
       "industry": "Electronics",
-      "group": "0"
+      "group": 0
     },
     {
       "id": 4,
       "name": "TKR4",
       "sector": "Technology",
       "industry": "Electronics",
-      "group": "1"
+      "group": 1
     },
     {
       "id": 5,
       "name": "TKR5",
       "sector": "Technology",
       "industry": "Electronics",
-      "group": "1"
+      "group": 1
     },
     {
       "id": 6,
       "name": "TKR6",
       "sector": "Technology",
       "industry": "Electronics",
-      "group": "1"
+      "group": 1
     }
   ],
   "links": [
-    { "source": 1, "target": 2, "group": 0 },
-    { "source": 3, "target": 1, "group": 0 },
-    { "source": 4, "target": 5, "group": 1 },
-    { "source": 6, "target": 4, "group": 0 }
+    { "source": 1, "target": 2 },
+    { "source": 3, "target": 1 },
+    { "source": 4, "target": 5 },
+    { "source": 6, "target": 4 }
   ]
 }
