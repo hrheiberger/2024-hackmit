@@ -58,7 +58,7 @@ const BasicPieChart = (props: IBasicPieChartProps) => {
         d3.forceLink<any, any>(links).id((d) => d.id)
       )
       .force("charge", d3.forceManyBody())
-      .force("collide", d3.forceCollide(50).iterations(10))
+      .force("collide", d3.forceCollide(55).iterations(10))
       .force("x", d3.forceX())
       .force("y", d3.forceY());
 
@@ -86,6 +86,14 @@ const BasicPieChart = (props: IBasicPieChartProps) => {
       .style("padding", "5px")
       .style("color", "black");
 
+    const link = svg
+      .attr("stroke", "#999")
+      .attr("stroke-opacity", 0.6)
+      .selectAll("line")
+      .data(links)
+      .join("line")
+      .attr("stroke-width", 2.5);
+
     const node = svg
       .attr("class", "nodes")
       .selectAll("g")
@@ -93,13 +101,6 @@ const BasicPieChart = (props: IBasicPieChartProps) => {
       .enter()
       .append("g");
 
-    const link = svg
-      .attr("stroke", "#999")
-      .attr("stroke-opacity", 0.6)
-      .selectAll("line")
-      .data(links)
-      .join("line")
-      .attr("stroke-width", 2.0);
     node
       .append("circle")
       .attr("r", 40)
