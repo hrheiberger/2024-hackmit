@@ -32,9 +32,12 @@ export const DisplayComponent = (): JSX.Element => {
 
   const addTicker = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    void insertCompany({ ticker: tickerInput.toUpperCase() });
-    void insertUser({ ticker: tickerInput.toUpperCase() });
-    setUserTickers([...userTickers, tickerInput.toUpperCase()]);
+    if (!userTickers.includes(tickerInput.toUpperCase())) {
+      void insertCompany({ ticker: tickerInput.toUpperCase() });
+      void insertUser({ ticker: tickerInput.toUpperCase() });
+      setUserTickers([...userTickers, tickerInput.toUpperCase()]);
+    }
+
     setTickerInput("");
   };
 
