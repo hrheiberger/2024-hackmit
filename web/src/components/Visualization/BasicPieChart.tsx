@@ -1,36 +1,24 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/no-var-requires */
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import * as d3 from "d3";
-import { PieArcDatum } from "d3-shape";
-import { Types } from "./types";
-import jsonData from "../../../data/sample_graph.json";
-import {
-  forceSimulation,
-  SimulationNodeDatum,
-  SimulationLinkDatum,
-} from "d3-force";
-import { useQuery } from "convex/react";
-import { useMutation } from "convex/react";
-import { api } from "../../../convex/_generated/api";
-import { BorderAllIcon } from "@radix-ui/react-icons";
 
-interface Node extends SimulationNodeDatum {
-  id: string;
-  group: string;
-  radius?: number;
-  citing_patents_count?: number;
-}
+// interface Node extends SimulationNodeDatum {
+//   id: string;
+//   group: string;
+//   radius?: number;
+//   citing_patents_count?: number;
+// }
 
 const BasicPieChart = (props: IBasicPieChartProps) => {
   useEffect(() => {
     const elements = document.getElementsByClassName("nodes");
     while (elements.length > 0) {
-      elements[0].parentNode.removeChild(elements[0]);
+      elements[0].parentNode?.removeChild(elements[0]);
     }
     const elements2 = document.getElementsByClassName("tooltip-player");
     while (elements2.length > 0) {
-      elements2[0].parentNode.removeChild(elements2[0]);
+      elements2[0].parentNode?.removeChild(elements2[0]);
     }
     draw();
   }, [props.companies, props.companyEdges]);
@@ -126,7 +114,7 @@ const BasicPieChart = (props: IBasicPieChartProps) => {
       .append("circle")
       .attr("r", 40)
       .attr("fill", "#fff")
-      .attr("stroke", (d) => color(d.group))
+      .attr("stroke", (d: any) => color(d.group))
       .attr("stroke-width", 10)
       .on("mouseover", (event, d) => {
         tipMouseOver(event, d, tooltip);
@@ -136,7 +124,7 @@ const BasicPieChart = (props: IBasicPieChartProps) => {
       });
     node
       .append("text")
-      .text((d) => d.name)
+      .text((d: any) => d.name)
       .style("text-anchor", "middle")
       .style("font-weight", "bold")
       .style("font-size", "15pt")
@@ -160,11 +148,11 @@ const BasicPieChart = (props: IBasicPieChartProps) => {
     // Set the position attributes of links and nodes each time the simulation ticks.
     simulation.on("tick", () => {
       link
-        .attr("x1", (d) => d.source.x)
-        .attr("y1", (d) => d.source.y)
-        .attr("x2", (d) => d.target.x)
-        .attr("y2", (d) => d.target.y);
-      node.attr("transform", (d) => `translate(${d.x},${d.y})`);
+        .attr("x1", (d: any) => d.source.x)
+        .attr("y1", (d: any) => d.source.y)
+        .attr("x2", (d: any) => d.target.x)
+        .attr("y2", (d: any) => d.target.y);
+      node.attr("transform", (d: any) => `translate(${d.x},${d.y})`);
     });
   };
 

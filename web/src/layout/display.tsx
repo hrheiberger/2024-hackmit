@@ -4,25 +4,25 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { Badge } from "@/components/ui/badge";
-import { useUser } from "@clerk/clerk-react";
 import React from "react";
 import { api } from "../../convex/_generated/api";
 import { useMutation, useQuery, useAction } from "convex/react";
 
 export const DisplayComponent = (): JSX.Element => {
-  const { user } = useUser();
   const { toast } = useToast();
 
   const [tickerInput, setTickerInput] = React.useState<string>("");
   const [userTickers, setUserTickers] = React.useState<Array<string>>([]);
 
+  // @ts-ignore
   const companies = useQuery(api.getCompanies.getCompanyList);
+  // @ts-ignore
   const companyEdges = useQuery(api.getCompanyEdges.getCompanyEdgesList);
 
   React.useEffect(() => {
     // TODO Use the API to update `userTickers` by calling `setUserTickers` with the new data
     if (companies) {
-      const companyNames = companies.map((company) => company.name);
+      const companyNames = companies.map((company: any) => company.name);
       console.log("bruh", companyNames);
       setUserTickers(companyNames);
     }
