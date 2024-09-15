@@ -4,10 +4,13 @@ import {
     AuthLoading,
     Unauthenticated,
   } from "convex/react";
-import { SignInButton, SignOutButton } from "@clerk/clerk-react";
+import { SignInButton, SignOutButton, useUser } from "@clerk/clerk-react";
 import { Button } from "@/components/ui/button";
 
 export const NavComponent = (): JSX.Element => {
+
+    const { user, isSignedIn } = useUser();
+
     return (
         <NavigationMenu className="!w-screen !max-w-full !fixed h-16">
             <NavigationMenuList className="!w-screen align-center justify-center">
@@ -16,6 +19,14 @@ export const NavComponent = (): JSX.Element => {
                         Unnamed Finance App
                     </NavigationMenuLink>
                 </NavigationMenuItem>
+                { isSignedIn ? <>
+                    <NavSpacer />
+                    <NavigationMenuItem>
+                        <NavigationMenuLink className={"p-4 !text-2xl !font-bold tracking-tight"}>
+                            Welcome {user.firstName}
+                        </NavigationMenuLink>
+                    </NavigationMenuItem>
+                </> : null }
                 <NavSpacer />
                 <NavigationMenuItem>
                     <Unauthenticated>

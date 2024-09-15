@@ -1,10 +1,10 @@
-# Unnamed Finance App
+# 'Unnamed' Finance App
 
 An unnamed web app for beautifully visualizing interesting connections in the market!
 
 ## What it does
 
-Our project provides users with a sandbox where they can quickly build a network that displays relationships in the stock market. After logging into the platform, users are able to add any company listed on the NYSE and engage with them on an interactive relationship graph. When each new entity is added, our platform automatically calculates the correlation between its stock market history and all other nodes, creating green edges between positively correlated stocks and red edges between negatively correlated ones. At any time, a user can click on any node in the graph to instantly see more information about the stock and drag around nodes to explore the model. Thus, the platform provides a unique and fun way to explore connections in the market!
+Our project provides users with a sandbox where they can quickly build a network that displays relationships in the stock market. After logging into the platform, users are able to add any company listed on the NYSE and engage with them on an interactive relationship graph. When each new entity is added, our platform automatically calculates the correlation between its stock market history and all other nodes, creating green edges between positively correlated stocks and red edges between negatively correlated ones. At any time, a user can hover over any node in the graph to instantly see more information about the stock and drag around nodes to explore the model. Thus, the platform provides a unique and fun way to explore connections in the market!
 
 ## How we built it
 
@@ -21,3 +21,9 @@ Our project allowed everyone on our team to work with libraries, frameworks, and
 ## What's next for our project
 
 Given more time, we'd love to increase the number of types of relationships that our platform can model! We believe that displaying a wide variety of relationship types paired with the unique representation that our web app provides could reveal hidden relationships that help users better understand market trends.
+
+## Launch Instructions
+
+Run `npm run dev` in the `./web` folder to start a dev instance of the web app
+
+Run `npm run build` in the `./web` folder to start a production instance of the web app
