@@ -79,7 +79,12 @@ export const insertNode = action({
 
     let companyAdded = false;
     for (const companyData of companiesData) {
-      if (getStockCorrelation(companyData.historical, data.closes, 100) > 0.8) {
+      const correlation = getStockCorrelation(
+        companyData.historical,
+        data.closes,
+        100
+      );
+      if (correlation > 0.8 || correlation < -0.3) {
         if (!companyAdded) {
           await ctx.runMutation(internal.insertNode.createCompany, {
             name: args.ticker,
@@ -93,6 +98,7 @@ export const insertNode = action({
         await ctx.runMutation(internal.insertEdge.createCompanyEdge, {
           company1: args.ticker,
           company2: companyData.id,
+          correlation: correlation,
         });
       }
     }
