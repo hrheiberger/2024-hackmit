@@ -24,8 +24,16 @@ interface Node extends SimulationNodeDatum {
 
 const BasicPieChart = (props: IBasicPieChartProps) => {
   useEffect(() => {
+    const elements = document.getElementsByClassName("nodes");
+    while (elements.length > 0) {
+      elements[0].parentNode.removeChild(elements[0]);
+    }
+    const elements2 = document.getElementsByClassName("tooltip-player");
+    while (elements2.length > 0) {
+      elements2[0].parentNode.removeChild(elements2[0]);
+    }
     draw();
-  });
+  }, [props.companies]);
 
   const draw = () => {
     // Reheat the simulation when drag starts, and fix the subject position.
@@ -77,6 +85,7 @@ const BasicPieChart = (props: IBasicPieChartProps) => {
     const svg = d3
       .select(".basicPieChart")
       .append("svg")
+      .attr("class", "svg")
       .attr("width", width)
       .attr("height", height)
       .attr("viewBox", [-width / 2, -height / 2, width, height])
