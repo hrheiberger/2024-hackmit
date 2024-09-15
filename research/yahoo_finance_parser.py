@@ -1,9 +1,8 @@
 import yfinance as yf 
 import pandas
 
-def get_country(ticker):
-    company = yf.Ticker(ticker)
-    return company.info["country"]
+#company = yf.Ticker("NVDA")
+#print(company.info)
 
 def get_industry(ticker):
     company = yf.Ticker(ticker)
@@ -20,17 +19,16 @@ def get_close_history(ticker):
 
     closes = [(row.values[0]) for index, row in history[["Close"]].iterrows()]
     return closes
-    }
 
 def get_company_data(ticker):
     company = yf.Ticker(ticker)
     start = pandas.Timestamp('2024-09-09 00:00:00-0400', tz='America/New_York')
     history = company.history(period="max", interval="1wk", start=start)
-
+    print(history)
     closes = [(row.values[0]) for index, row in history[["Close"]].iterrows()]
     return {
-        "ticker": 
-        "closes": closes[::-1], 
+        "ticker": ticker,
+        "closes": closes, 
         "industry": company.info["industryKey"], 
         "sector": company.info["sector"],
         "country": company.info["country"]
@@ -69,6 +67,7 @@ if __name__ == "__main__":
     ]
 
     data = []
-    for ticker in sp500_tickers[0:10]:
-        data.append(get_company_data(ticker))
+    for ticker in sp500_tickers[0:1]:
+        data.append(get_company_data("YEXT"))
     print(data)
+    print(get_close_history("YEXT"))
