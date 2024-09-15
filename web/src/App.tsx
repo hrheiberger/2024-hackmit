@@ -1,22 +1,17 @@
-import { Button } from "@/components/ui/button";
-import { SignInButton, UserButton } from "@clerk/clerk-react";
-import {
-  Authenticated,
-  Unauthenticated,
-  useMutation,
-  useQuery,
-} from "convex/react";
-import { useAction } from "convex/react";
-import { api } from "../convex/_generated/api";
+import { Toaster } from "@/components/ui/toaster";
 import { NavComponent } from "./layout/nav";
-import { TypeAnimation } from "react-type-animation";
 import { HomeComponent } from "./layout/home";
+import { useConvexAuth } from "convex/react";
+import { DisplayComponent } from "./layout/display";
 
 export default function App() {
+  const { isAuthenticated } = useConvexAuth();
+
   return (
     <>
       <NavComponent />
-      <HomeComponent />
+      {isAuthenticated ? <DisplayComponent /> : <HomeComponent />}
+      <Toaster />
     </>
   );
 }
