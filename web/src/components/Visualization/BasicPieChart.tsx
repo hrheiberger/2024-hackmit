@@ -181,6 +181,10 @@ function tipMouseOver(this: any, event: any, d: any, tooltip: any) {
   html +=
     d.name +
     "<br><b>" +
+    "Current Price" +
+    ": </b>" +
+    d.price +
+    "<br><b>" +
     "Sector" +
     ": </b>" +
     d.sector +

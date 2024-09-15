@@ -16,6 +16,7 @@ export const getCompanyList = query({
         sector: companyDocument.sector,
         industry: companyDocument.industry,
         group: companyDocument.group,
+        price: companyDocument.price,
       };
     });
     return companyNames;

@@ -25,6 +25,7 @@ export default defineSchema(
       industry: v.string(),
       sector: v.string(),
       group: v.string(),
+      price: v.number(),
     }),
 
     companyEdges: defineTable({
