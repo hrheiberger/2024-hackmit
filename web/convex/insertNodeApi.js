@@ -86,7 +86,7 @@ export const insertNode = action({
         data.closes,
         100
       );
-      if (correlation > 0.7 || correlation < -0.3) {
+      if (correlation > 0.8 || correlation < -0.3) {
         if (!companyAdded) {
           await ctx.runMutation(internal.insertNode.createCompany, {
             name: args.ticker,
