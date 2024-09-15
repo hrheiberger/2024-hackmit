@@ -77,20 +77,33 @@ export const insertNode = action({
     //   name: "bro",
     // });
 
-    await ctx.runMutation(internal.insertNode.createCompany, {
-      name: args.ticker,
-      historical: data.closes,
-      industry: data.industry,
-      sector: data.sector,
-    });
-
+    let companyAdded = false;
     for (const companyData of companiesData) {
-      if (getStockCorrelation(companyData.historical, data.closes, 100) > 0.5) {
+      if (getStockCorrelation(companyData.historical, data.closes, 100) > 0.8) {
+        if (!companyAdded) {
+          await ctx.runMutation(internal.insertNode.createCompany, {
+            name: args.ticker,
+            historical: data.closes,
+            industry: data.industry,
+            sector: data.sector,
+            group: companyData.group,
+          });
+          companyAdded = true;
+        }
         await ctx.runMutation(internal.insertEdge.createCompanyEdge, {
           company1: args.ticker,
           company2: companyData.id,
         });
       }
+    }
+    if (!companyAdded) {
+      await ctx.runMutation(internal.insertNode.createCompany, {
+        name: args.ticker,
+        historical: data.closes,
+        industry: data.industry,
+        sector: data.sector,
+        group: "none",
+      });
     }
   },
 });

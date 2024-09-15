@@ -4,8 +4,10 @@ import { v } from "convex/values";
 // Return the array of company edges
 export const getCompanyEdgesList = query({
   handler: async (ctx) => {
+    const user = (await ctx.auth.getUserIdentity())?.name;
     const companiesEdgesDocuments = await ctx.db
       .query("companyEdges")
+      .filter((q) => q.eq(q.field("user"), user))
       .collect();
     const companyEdges = companiesEdgesDocuments.map((companyEdge) => {
       return {

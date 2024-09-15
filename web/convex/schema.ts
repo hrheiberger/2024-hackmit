@@ -19,13 +19,16 @@ export default defineSchema(
     }),
 
     companies: defineTable({
+      user: v.string(),
       name: v.string(),
       historical: v.array(v.number()),
       industry: v.string(),
       sector: v.string(),
+      group: v.string(),
     }),
 
     companyEdges: defineTable({
+      user: v.string(),
       company1: v.string(),
       company2: v.string(),
     }),

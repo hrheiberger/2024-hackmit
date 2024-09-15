@@ -33,7 +33,7 @@ const BasicPieChart = (props: IBasicPieChartProps) => {
       elements2[0].parentNode.removeChild(elements2[0]);
     }
     draw();
-  }, [props.companies]);
+  }, [props.companies, props.companyEdges]);
 
   const draw = () => {
     // Reheat the simulation when drag starts, and fix the subject position.
