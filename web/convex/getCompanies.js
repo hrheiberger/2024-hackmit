@@ -8,6 +8,9 @@ export const getCompanyList = query({
     const companyNames = companiesDocuments.map((companyDocument) => {
       return {
         id: companyDocument.name,
+        name: companyDocument.name,
+        sector: companyDocument.sector,
+        industry: companyDocument.industry,
       };
     });
     return companyNames;
