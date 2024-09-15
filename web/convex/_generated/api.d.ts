@@ -18,7 +18,6 @@ import type * as getCompanyEdges from "../getCompanyEdges.js";
 import type * as insertEdge from "../insertEdge.js";
 import type * as insertNode from "../insertNode.js";
 import type * as insertNodeApi from "../insertNodeApi.js";
-import type * as myFunctions from "../myFunctions.js";
 import type * as YahooFinanceParser from "../YahooFinanceParser.js";
 
 /**
@@ -35,7 +34,6 @@ declare const fullApi: ApiFromModules<{
   insertEdge: typeof insertEdge;
   insertNode: typeof insertNode;
   insertNodeApi: typeof insertNodeApi;
-  myFunctions: typeof myFunctions;
   YahooFinanceParser: typeof YahooFinanceParser;
 }>;
 export declare const api: FilterApi<

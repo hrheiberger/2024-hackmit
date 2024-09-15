@@ -4,26 +4,25 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { Badge } from "@/components/ui/badge";
-import { useUser } from "@clerk/clerk-react";
 import React from "react";
 import { api } from "../../convex/_generated/api";
 import { useMutation, useQuery, useAction } from "convex/react";
 
 export const DisplayComponent = (): JSX.Element => {
-  const { user } = useUser();
   const { toast } = useToast();
 
   const [tickerInput, setTickerInput] = React.useState<string>("");
   const [userTickers, setUserTickers] = React.useState<Array<string>>([]);
 
+  // @ts-ignore
   const companies = useQuery(api.getCompanies.getCompanyList);
+  // @ts-ignore
   const companyEdges = useQuery(api.getCompanyEdges.getCompanyEdgesList);
 
   React.useEffect(() => {
     // TODO Use the API to update `userTickers` by calling `setUserTickers` with the new data
     if (companies) {
-      const companyNames = companies.map((company) => company.name);
-      console.log("bruh", companyNames);
+      const companyNames = companies.map((company: any) => company.name);
       setUserTickers(companyNames);
     }
   }, [companies]);
@@ -33,16 +32,18 @@ export const DisplayComponent = (): JSX.Element => {
 
   const addTicker = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    void insertCompany({ ticker: tickerInput.toUpperCase() });
-    void insertUser({ ticker: tickerInput.toUpperCase() });
-    setUserTickers([...userTickers, tickerInput.toUpperCase()]);
+    if (!userTickers.includes(tickerInput.toUpperCase())) {
+      void insertCompany({ ticker: tickerInput.toUpperCase() });
+      void insertUser({ ticker: tickerInput.toUpperCase() });
+      setUserTickers([...userTickers, tickerInput.toUpperCase()]);
+    }
+
     setTickerInput("");
   };
 
   const deleteCompany = useMutation(api.insertNode.deleteTicker);
 
   const deleteTicker = (tickerCode: string) => {
-    console.log(tickerCode);
     toast({
       description: `Deleted ticker ${tickerCode}`,
     });
@@ -54,7 +55,7 @@ export const DisplayComponent = (): JSX.Element => {
   return (
     <main className="mx-12 h-screen flex flex-col sm:flex-row gap-8 items-center justify-center">
       <BasicPieChart
-        height={Math.floor(window.innerHeight * 0.8)}
+        height={Math.floor(window.innerHeight * 0.95)}
         width={Math.floor(window.innerWidth * 0.7)}
         top={10}
         bottom={10}

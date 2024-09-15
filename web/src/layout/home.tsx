@@ -1,5 +1,3 @@
-import { SignedIn } from "@clerk/clerk-react"
-import { Authenticated, Unauthenticated } from "convex/react"
 import { TypeAnimation } from "react-type-animation"
 
 export const HomeComponent = (): JSX.Element => {
