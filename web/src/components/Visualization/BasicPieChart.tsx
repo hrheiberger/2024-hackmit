@@ -78,7 +78,7 @@ const BasicPieChart = (props: IBasicPieChartProps) => {
         d3.forceLink<any, any>(links).id((d) => d.id)
       )
       .force("charge", d3.forceManyBody())
-      .force("collide", d3.forceCollide(55).iterations(10))
+      .force("collide", d3.forceCollide(80).iterations(10))
       .force("x", d3.forceX())
       .force("y", d3.forceY());
 
@@ -108,12 +108,17 @@ const BasicPieChart = (props: IBasicPieChartProps) => {
       .style("color", "black");
 
     const link = svg
-      .attr("stroke", "#999")
       .attr("stroke-opacity", 0.6)
       .selectAll("line")
       .data(links)
       .join("line")
-      .attr("stroke-width", 2.5);
+      .attr("stroke", (d) => {
+        if (d.correlation > 0.7) {
+          return "green";
+        }
+        return "red";
+      })
+      .attr("stroke-width", 8.0);
 
     const node = svg
       .attr("class", "nodes")
@@ -127,7 +132,7 @@ const BasicPieChart = (props: IBasicPieChartProps) => {
       .attr("r", 40)
       .attr("fill", "#fff")
       .attr("stroke", (d) => color(d.group))
-      .attr("stroke-width", 10)
+      .attr("stroke-width", 12)
       .on("mouseover", (event, d) => {
         tipMouseOver(event, d, tooltip);
       })
@@ -182,7 +187,7 @@ function tipMouseOver(this: any, event: any, d: any, tooltip: any) {
     d.name +
     "<br><b>" +
     "Current Price" +
-    ": </b>" +
+    ": </b>$" +
     d.price +
     "<br><b>" +
     "Sector" +
@@ -195,7 +200,7 @@ function tipMouseOver(this: any, event: any, d: any, tooltip: any) {
     d.industry;
   tooltip
     .html(html)
-    .style("left", event.pageX + 15 + "px")
+    .style("left", event.pageX + 40 + "px")
     .style("top", event.pageY - 28 + "px")
     .transition()
     .duration(200) // ms
