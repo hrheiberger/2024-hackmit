@@ -1,6 +1,10 @@
-var yahooFinance = from 'yahoo-finance'
+"use node";
+
+import yahooFinance from 'yahoo-finance2';
+import { action } from "./_generated/server";
 import { startOfWeek } from 'date-fns';
 
+/*
 interface CompanyInfo {
     country: string;
     industry: string;
@@ -32,25 +36,30 @@ async function getCloseHistory(ticker: string): Promise<number[]> {
     return history.map(entry => entry.close);
 }
 
-
-async function getCompanyData(ticker: string): Promise<any> {
-    const company = await yahooFinance.quote(ticker);
-    const startDate = startOfWeek(new Date('2024-09-09T00:00:00-04:00'), { weekStartsOn: 1 });
-    const history = await yahooFinance.historical(ticker, {
+*/
+export const getCompanyData = action({
+    args : {},
+    handler: async () => {
+    const company = await yahooFinance.quote("YEXT");
+    const startDate = startOfWeek(new Date('2022-01-01T00:00:00-04:00'), { weekStartsOn: 1 });
+    const history = (await yahooFinance.chart("YEXT", {
         period1: startDate,
         interval: '1wk'
-    });
+    })).quotes;
 
-    const closes = history;
+    const closes: number[] = [];
+    for (const entry of history){
+        closes.push(entry.close ?? 0)
+    }
 
     return {
-        ticker,
-        closes,
+        ticker: "YEXT",
+        closes: closes,
         industry: company.industry,
         sector: company.sector,
         country: company.country
-    };
-}
+    };}
+});
 
 async function main() {
     const sp500_tickers = [
@@ -83,14 +92,13 @@ async function main() {
         "WAT", "WBA", "WBC", "WBD", "WDC", "WEC", "WELL", "WFC", "WFM", "WHR", "WLTW", "WM", "WMB", "WMT", "WRB", "WRK", "WU",
         "WWE", "X", "XEC", "XEL", "XOM", "XPO", "XRX", "XYL", "YUM", "ZBH", "ZBRA", "ZION", "ZTS"
     ]
-
+    /*
     const data = [];
-    for (const ticker of sp500_tickers.slice(0, 25)) {
+    for (const ticker of sp500_tickers.slice(0, 1)) {
         data.push(await getCompanyData(ticker));
     }
 
-    const nvdaCloses = await getCloseHistory("NVDA");
-    console.log('NVDA Closes:', nvdaCloses);
+    console.log('data:', data);
+    */
 }
 
-main().catch(console.error);
