@@ -1,0 +1,15 @@
+{
+  "nodes": [
+    { "id": 0, "image": "https://placedog.net/40/40" },
+    { "id": 1, "image": "https://placedog.net/35/35" },
+    { "id": 2, "image": "https://placedog.net/30/0" },
+    { "id": 3, "image": "https://placedog.net/40/40" },
+    { "id": 4, "image": "https://placedog.net/40/40" },
+    { "id": 5, "image": "https://placedog.net/40/40" }
+  ],
+  "links": [
+    { "source": 0, "target": 1, "group": 0 },
+    { "source": 0, "target": 2, "group": 0 },
+    { "source": 3, "target": 4, "group": 0 }
+  ]
+}
