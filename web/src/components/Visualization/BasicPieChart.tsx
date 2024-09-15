@@ -184,7 +184,9 @@ const BasicPieChart = (props: IBasicPieChartProps) => {
 function tipMouseOver(this: any, event: any, d: any, tooltip: any) {
   let html = "";
   html +=
-    d.name +
+    "<b>" +
+    d.company +
+    "</b>" +
     "<br><b>" +
     "Current Price" +
     ": </b>$" +

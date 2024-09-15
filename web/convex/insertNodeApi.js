@@ -11,6 +11,7 @@ async function getHistoricalData(ticker) {
   const company = await yahooFinance.quoteSummary(ticker, {
     modules: ["assetProfile", "price"],
   });
+  console.log(company);
   const startDate = startOfWeek(new Date("2022-01-01T00:00:00-04:00"), {
     weekStartsOn: 1,
   });
@@ -25,13 +26,13 @@ async function getHistoricalData(ticker) {
   for (const entry of history) {
     closes.push(entry.close ?? 0);
   }
-  console.log(company);
   return {
     ticker: ticker,
     closes: closes,
     industry: company.assetProfile.industry,
     sector: company.assetProfile.sector,
     price: company.price.regularMarketPrice,
+    company: company.price.shortName,
   };
 }
 
@@ -94,6 +95,7 @@ export const insertNode = action({
             sector: data.sector,
             group: companyData.group,
             price: data.price,
+            company: data.company,
           });
           companyAdded = true;
         }
@@ -112,6 +114,7 @@ export const insertNode = action({
         sector: data.sector,
         group: "none",
         price: data.price,
+        company: data.company,
       });
     }
   },

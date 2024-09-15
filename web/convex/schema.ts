@@ -26,13 +26,13 @@ export default defineSchema(
       sector: v.string(),
       group: v.string(),
       price: v.number(),
+      company: v.string(),
     }),
 
     companyEdges: defineTable({
       user: v.string(),
       company1: v.string(),
       company2: v.string(),
-      correlation: v.number(),
     }),
 
     userHistory: defineTable({

@@ -10,6 +10,7 @@ export const createCompany = mutation({
     sector: v.string(),
     group: v.string(),
     price: v.number(),
+    company: v.string(),
   },
   handler: async (ctx, args) => {
     const user = (await ctx.auth.getUserIdentity())?.name;
@@ -22,6 +23,7 @@ export const createCompany = mutation({
         sector: args.sector,
         group: args.name,
         price: args.price,
+        company: args.company,
       });
     } else {
       await ctx.db.insert("companies", {
@@ -32,6 +34,7 @@ export const createCompany = mutation({
         sector: args.sector,
         group: args.group,
         price: args.price,
+        company: args.company,
       });
     }
 
