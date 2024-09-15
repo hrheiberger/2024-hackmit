@@ -151,7 +151,7 @@ const BasicPieChart = (props: IBasicPieChartProps) => {
     );
 
     // Set the position attributes of links and nodes each time the simulation ticks.
-    simulation.on("tick", () => {
+    simulation.nodes(nodes).on("tick", () => {
       link
         .attr("x1", (d: any) => d.source.x)
         .attr("y1", (d: any) => d.source.y)
