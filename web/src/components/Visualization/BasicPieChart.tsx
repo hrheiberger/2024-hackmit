@@ -93,6 +93,13 @@ const BasicPieChart = (props: IBasicPieChartProps) => {
       .enter()
       .append("g");
 
+    const link = svg
+      .attr("stroke", "#999")
+      .attr("stroke-opacity", 0.6)
+      .selectAll("line")
+      .data(links)
+      .join("line")
+      .attr("stroke-width", 2.0);
     node
       .append("circle")
       .attr("r", 40)
@@ -108,15 +115,8 @@ const BasicPieChart = (props: IBasicPieChartProps) => {
       .text((d) => d.name)
       .style("text-anchor", "middle")
       .style("font-weight", "bold")
-      .style("font-size", "10pt")
+      .style("font-size", "15pt")
       .style("fill", "#344761");
-    const link = svg
-      .attr("stroke", "#999")
-      .attr("stroke-opacity", 0.6)
-      .selectAll("line")
-      .data(links)
-      .join("line")
-      .attr("stroke-width", 2.0);
 
     // Add a drag behavior.
     node.call(
