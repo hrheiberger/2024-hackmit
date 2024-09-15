@@ -23,7 +23,6 @@ export const DisplayComponent = (): JSX.Element => {
     // TODO Use the API to update `userTickers` by calling `setUserTickers` with the new data
     if (companies) {
       const companyNames = companies.map((company: any) => company.name);
-      console.log("bruh", companyNames);
       setUserTickers(companyNames);
     }
   }, [companies]);
@@ -42,7 +41,6 @@ export const DisplayComponent = (): JSX.Element => {
   const deleteCompany = useMutation(api.insertNode.deleteTicker);
 
   const deleteTicker = (tickerCode: string) => {
-    console.log(tickerCode);
     toast({
       description: `Deleted ticker ${tickerCode}`,
     });
@@ -54,7 +52,7 @@ export const DisplayComponent = (): JSX.Element => {
   return (
     <main className="mx-12 h-screen flex flex-col sm:flex-row gap-8 items-center justify-center">
       <BasicPieChart
-        height={Math.floor(window.innerHeight * 0.8)}
+        height={Math.floor(window.innerHeight * 0.95)}
         width={Math.floor(window.innerWidth * 0.7)}
         top={10}
         bottom={10}
