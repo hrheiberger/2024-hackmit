@@ -10,7 +10,17 @@ import {
   SimulationNodeDatum,
   SimulationLinkDatum,
 } from "d3-force";
+import { useQuery } from "convex/react";
+import { useMutation } from "convex/react";
+import { api } from "../../../convex/_generated/api";
 import { BorderAllIcon } from "@radix-ui/react-icons";
+
+interface Node extends SimulationNodeDatum {
+  id: string;
+  group: string;
+  radius?: number;
+  citing_patents_count?: number;
+}
 
 const BasicPieChart = (props: IBasicPieChartProps) => {
   useEffect(() => {
@@ -48,8 +58,10 @@ const BasicPieChart = (props: IBasicPieChartProps) => {
 
     // The force simulation mutates links and nodes, so create a copy
     // so that re-evaluating this cell produces the same result.
-    const links = jsonData.links.map((d) => ({ ...d }));
-    const nodes = jsonData.nodes.map((d) => ({ ...d }));
+    // const links = jsonData.links.map((d) => ({ ...d }));
+    // const nodes = jsonData.nodes.map((d) => ({ ...d }));
+    const links = props.companyEdges ? props.companyEdges : [];
+    const nodes = props.companies ? props.companies : [];
 
     const simulation = d3
       .forceSimulation<any>(nodes)
@@ -198,6 +210,8 @@ interface IBasicPieChartProps {
   right: number;
   bottom: number;
   left: number;
+  companies: any;
+  companyEdges: any;
 }
 
 export default BasicPieChart;
