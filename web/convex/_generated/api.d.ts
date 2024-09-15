@@ -19,6 +19,7 @@ import type * as insertEdge from "../insertEdge.js";
 import type * as insertNode from "../insertNode.js";
 import type * as insertNodeApi from "../insertNodeApi.js";
 import type * as myFunctions from "../myFunctions.js";
+import type * as YahooFinanceParser from "../YahooFinanceParser.js";
 
 /**
  * A utility for referencing Convex functions in your app's API.
@@ -35,6 +36,7 @@ declare const fullApi: ApiFromModules<{
   insertNode: typeof insertNode;
   insertNodeApi: typeof insertNodeApi;
   myFunctions: typeof myFunctions;
+  YahooFinanceParser: typeof YahooFinanceParser;
 }>;
 export declare const api: FilterApi<
   typeof fullApi,
