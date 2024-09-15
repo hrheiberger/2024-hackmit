@@ -8,21 +8,14 @@ import {
 } from "convex/react";
 import { useAction } from "convex/react";
 import { api } from "../convex/_generated/api";
-<<<<<<< HEAD
 import { NavComponent } from "./layout/nav";
-import { TypeAnimation } from 'react-type-animation';
+import { TypeAnimation } from "react-type-animation";
 import { HomeComponent } from "./layout/home";
-
-export default function App() {
-  return (
-=======
 import BasicPieChart from "./components/Visualization/BasicPieChart";
 
 export default function App() {
   const performMyAction = useAction(api.YahooFinanceParser.getCompanyData);
   console.log(performMyAction().then((data) => data.closes));
-
-
 
   return (
     <main className="container max-w-2xl flex flex-col gap-8">
@@ -59,7 +52,6 @@ function SignedIn() {
   const addNumber = useMutation(api.myFunctions.addNumber);
 
   return (
->>>>>>> 1e265d1c8e0a033a2328d3369168da1fbd5e8d79
     <>
       <NavComponent />
       <HomeComponent />
