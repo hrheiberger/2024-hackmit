@@ -1,8 +1,8 @@
 import yfinance as yf 
 import pandas
 
-company = yf.Ticker("NVDA")
-print(company.info)
+#company = yf.Ticker("NVDA")
+#print(company.info)
 
 def get_industry(ticker):
     company = yf.Ticker(ticker)
