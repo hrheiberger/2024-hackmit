@@ -58,7 +58,7 @@ const BasicPieChart = (props: IBasicPieChartProps) => {
         d3.forceLink<any, any>(links).id((d) => d.id)
       )
       .force("charge", d3.forceManyBody())
-      .force("collide", d3.forceCollide(40).iterations(10))
+      .force("collide", d3.forceCollide(50).iterations(10))
       .force("x", d3.forceX())
       .force("y", d3.forceY());
 
@@ -104,6 +104,8 @@ const BasicPieChart = (props: IBasicPieChartProps) => {
       .append("circle")
       .attr("r", 40)
       .attr("fill", "#fff")
+      .attr("stroke", (d) => color(d.group))
+      .attr("stroke-width", 10)
       .on("mouseover", (event, d) => {
         tipMouseOver(event, d, tooltip);
       })
@@ -116,7 +118,13 @@ const BasicPieChart = (props: IBasicPieChartProps) => {
       .style("text-anchor", "middle")
       .style("font-weight", "bold")
       .style("font-size", "15pt")
-      .style("fill", "#344761");
+      .style("fill", "#344761")
+      .on("mouseover", (event, d) => {
+        tipMouseOver(event, d, tooltip);
+      })
+      .on("mouseout", () => {
+        tipMouseOut(tooltip);
+      });
 
     // Add a drag behavior.
     node.call(
@@ -146,7 +154,7 @@ const BasicPieChart = (props: IBasicPieChartProps) => {
  * @param {*} d
  * @param {*} iter
  */
-function tipMouseOver(event: any, d: any, tooltip: any) {
+function tipMouseOver(this: any, event: any, d: any, tooltip: any) {
   let html = "";
   html +=
     d.name +
@@ -167,12 +175,8 @@ function tipMouseOver(event: any, d: any, tooltip: any) {
     .duration(200) // ms
     .style("opacity", 0.9); // started as 0!
 
-  console.log(tooltip);
-
   // Use D3 to select element, change color and size
-  d3.select(this)
-    //.attr("r", 10)
-    .style("cursor", "pointer");
+  d3.select(this).style("cursor", "pointer");
 }
 
 /**
